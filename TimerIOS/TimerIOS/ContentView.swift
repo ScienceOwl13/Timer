@@ -10,18 +10,20 @@ import SwiftUI
 struct ContentView: View {
    
     @State var countdownTimer: Int = 60
-    @State var timerCounting: Bool = true
+    @State var timerCounting: Bool = false
     @State var timerMax: Int = 60
-    @State var startStop: String = "Stop"
+    @State var pausePlay: String = "Play"
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
+    
+    
     
     var body: some View {
         
         let completionRing = Double(countdownTimer) / Double(timerMax)
-
+    
         VStack {
-            
+
             Spacer()
             
             ZStack {
@@ -44,14 +46,43 @@ struct ContentView: View {
             Spacer()
             
             HStack {
-                Button("Pause") {
-                    if timerCounting == true {
-                        timerCounting = false
+                
+                Spacer()
+                
+                
+                ZStack {
+                    Text("Pause")
+                        .padding()
+                        .opacity(0)
+                    Button(pausePlay) {
+                        if timerCounting == true {
+                            timerCounting = false
+                            pausePlay = "Play"
+                        }
+                        else if timerCounting == false {
+                            timerCounting = true
+                            pausePlay = "Pause"
+
+                        }
                     }
-                    else if timerCounting == false {
-                        timerCounting = true
-                    }
+                    .foregroundColor(.black)
+                    .padding()
                 }
+
+                
+                Spacer()
+                
+                Button("Reset") {
+                    countdownTimer = timerMax
+                    timerCounting = false
+                    pausePlay = "Play"
+                }
+                .foregroundColor(.red)
+                .padding()
+
+                
+                Spacer()
+
             }
             
 //            Spacer()
@@ -63,6 +94,11 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Group {
+            ContentView()
+                .previewInterfaceOrientation(.portrait)
+            ContentView()
+                .previewInterfaceOrientation(.portrait)
+        }
     }
 }
