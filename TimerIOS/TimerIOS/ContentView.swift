@@ -11,9 +11,10 @@ struct ContentView: View {
    
     @State var countdownTimer: Int = 60
     @State var timerCounting: Bool = true
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State var timerMax: Int = 60
-    
+    @State var startStop: String = "Stop"
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
     
     var body: some View {
         
@@ -21,8 +22,9 @@ struct ContentView: View {
 
         VStack {
             
+            Spacer()
+            
             ZStack {
-                
                 ProgressRing(ringPercentage: completionRing)
                     .frame(width: 300, height: 300)
 
@@ -35,7 +37,25 @@ struct ContentView: View {
                         }
                 }
                 .font(.system(size: 100))
+                
+                
             }
+            
+            Spacer()
+            
+            HStack {
+                Button("Pause") {
+                    if timerCounting == true {
+                        timerCounting = false
+                    }
+                    else if timerCounting == false {
+                        timerCounting = true
+                    }
+                }
+            }
+            
+//            Spacer()
+            
         }
         
     }

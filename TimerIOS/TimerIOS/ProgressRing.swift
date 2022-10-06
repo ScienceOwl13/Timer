@@ -12,7 +12,6 @@ struct ProgressRing: View {
     var ringPercentage: Double // State variables are a different type of varibale, they don't interact the same way other variables -- possibly only declared at the start and not refreshed.
     
     var body: some View {
-        
         VStack {
             ZStack {
                     Circle()
@@ -30,7 +29,7 @@ struct ProgressRing: View {
                             )
                         )
                         .rotationEffect(.degrees(-90))
-                        .animation(.easeOut, value: ringPercentage)
+                        .animation(.easeInOut, value: ringPercentage)
             }
         }
     }
