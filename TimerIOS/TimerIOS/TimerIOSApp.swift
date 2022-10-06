@@ -1,18 +1,17 @@
 //
-//  TimerApp.swift
-//  Timer
+//  TimerIOSApp.swift
+//  TimerIOS
 //
-//  Created by Connor Groen on 2022-10-04.
+//  Created by Connor Groen on 2022-10-05.
 //
 
 import SwiftUI
 
 @main
-struct swiftui_menu_barApp: App {
+struct TimerIOSApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-            
         }
     }
 }
