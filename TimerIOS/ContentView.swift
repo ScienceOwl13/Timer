@@ -9,11 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
    
-    @State var countdownTimer: Int = 60
+    @State var countdownTimer: Int = 1500
     @State var timerCounting: Bool = false
-    @State var timerMax: Int = 60
+    @State var timerMax: Int = 1500
     @State var pausePlay: String = "Play"
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+   
 
     
     
@@ -21,24 +22,33 @@ struct ContentView: View {
     var body: some View {
         
         let completionRing = Double(countdownTimer) / Double(timerMax)
+        let seconds = countdownTimer % 60
+        let minutes = countdownTimer / 60
     
         VStack {
 
             Spacer()
-            
+    
             ZStack {
                 ProgressRing(ringPercentage: completionRing)
                     .frame(width: 300, height: 300)
 
-                Text("\(countdownTimer)")
-                    .onReceive(timer) { _ in
-                        if countdownTimer > 0 && timerCounting {
-                            countdownTimer -= 1
-                        } else {
-                            timerCounting = false
-                        }
+                ZStack {
+                    Text("88:88")
+                        .font(.system(size: 100))
+                        .opacity(0)
+                    
+                    Text(String(format: "%02d:%02d", minutes, seconds))
+                        .onReceive(timer) { _ in
+                            if countdownTimer > 0 && timerCounting {
+                                countdownTimer -= 1
+                            } else {
+                                timerCounting = false
+                            }
+                    }
+                    .font(.system(size: 100))
                 }
-                .font(.system(size: 100))
+
                 
                 
             }
@@ -85,7 +95,6 @@ struct ContentView: View {
 
             }
             
-//            Spacer()
             
         }
         
@@ -96,9 +105,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ContentView()
-                .previewInterfaceOrientation(.portrait)
-            ContentView()
-                .previewInterfaceOrientation(.portrait)
         }
     }
 }
